@@ -1,0 +1,1 @@
+function [outputBits outputDB] = ADC(inputSignal)
