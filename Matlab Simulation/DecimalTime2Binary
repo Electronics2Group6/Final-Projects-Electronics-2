@@ -1,17 +1,70 @@
 close all;
 clear all;
 clc;
-
+%%
 myhandles = struct;
-myhandles.path= 'Binary.txt';
+myhandles.path1= 'Binary_Time.txt';
+myhandles.path2 = 'Binary_Position.txt';
+myhandles.path3 = 'Binary_ID.txt';
 
-prompt = 'Enter the time in Milliseconds: ';
-hObj = input(prompt, 's');
-        
-MID = str2num(hObj);
-temp = de2bi(MID,'left-msb');
-myhandles.MID = [zeros(1,16-length(temp)),temp];
+%%
+prompt2 = struct;
 
-fileID = fopen( 'Binary.txt','w');
-A = myhandles.MID;
+prompt1 = 'Enter the time in Milliseconds: ';
+prompt2.x = 'Enter the x position (1-3): ';
+prompt2.y = 'Enter the y position (1-3): ';
+prompt2.z = 'Enter the z position (1-3): ';
+prompt3 = 'Enter the satellite ID (1-5): ';
+prompt4 = 'Enter the voltage value (0-5): ';
+
+htim = input(prompt1, 's');
+hposx = input(prompt2.x, 's');
+hposy = input(prompt2.y, 's');
+hposz = input(prompt2.z, 's');
+hID = input(prompt3, 's');
+hvol = input(prompt4, 's');
+
+%%
+TIM = str2num(htim);
+temp = de2bi(TIM,'left-msb');
+myhandles.TIM = [zeros(1,16-length(temp)),temp];
+
+fileID = fopen( 'Binary_Time.txt','w');
+A = myhandles.TIM;
 fprintf(fileID,'%u',A);
+
+PROX = str2num(hposx);
+temp = de2bi(PROX,'left-msb');
+myhandles.PROX = [zeros(1,2-length(temp)),temp];
+
+PROY = str2num(hposy);
+temp = de2bi(PROY,'left-msb');
+myhandles.PROY = [zeros(1,2-length(temp)),temp];
+
+PROZ = str2num(hposz);
+temp = de2bi(PROZ,'left-msb');
+myhandles.PROZ = [zeros(1,2-length(temp)),temp];
+
+fileID = fopen( 'Binary_Position.txt','w');
+A = myhandles.PROX;
+B = myhandles.PROY;
+C = myhandles.PROZ;
+fprintf(fileID,'%u',A);
+fprintf(fileID,'%u',B);
+fprintf(fileID,'%u',C);
+
+ID = str2num(hID);
+temp = de2bi(ID,'left-msb');
+myhandles.ID = [zeros(1,3-length(temp)),temp];
+
+fileID = fopen( 'Binary_ID.txt','w');
+A = myhandles.ID;
+fprintf(fileID,'%u',A);
+
+VOLT = str2num(hvol);
+temp = de2bi(VOLT,'left-msb');
+myhandles.VOLT = [zeros(1,3-length(temp)),temp];
+
+fileID = fopen( 'FinalBinary5.txt','w');
+A = [myhandles.TIM,myhandles.PROX,myhandles.PROY,myhandles.PROZ,myhandles.ID,myhandles.VOLT];
+ fprintf(fileID,'%u',A);
