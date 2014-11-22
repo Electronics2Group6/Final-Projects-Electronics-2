@@ -5,6 +5,9 @@ close all
 %% initialization
 
 %% convert signal strength of all nearby satellites
+strengths = [1 2 3 4 5]
+
+for i = 1:5
 
 %% choose the best 4 satellites to use
 
@@ -12,10 +15,10 @@ close all
 % [X, Y, Z, T]  = gps( x1, xi, y1, yi, z1, zi, p1, pp)
 
 %% mytest
-xi = [ 2088202.299       11092568.240    35606984.591    3966929.048]
-yi = [-11757191.370    -14198201.090     94447027.237    7362851.831] %y3 in the paper is 94447027.237, they messed up their copying
-zi = [ 25391471.881      21471165.950    9101378.572     26388447.172]
-ri = [23204698.51 21585835.37 31364260.01 24966798.73]
+% xi = [ 2088202.299       11092568.240    35606984.591    3966929.048]
+% yi = [-11757191.370    -14198201.090     94447027.237    7362851.831] %y3 in the paper is 94447027.237, they messed up their copying
+% zi = [ 25391471.881      21471165.950    9101378.572     26388447.172]
+% ri = [23204698.51 21585835.37 31364260.01 24966798.73]
 [C] = thesisGPS(xi,yi,zi,ri)
 X = C(1)
 Y = C(2)
