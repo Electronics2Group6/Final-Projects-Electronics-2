@@ -1,0 +1,17 @@
+close all;
+clear all;
+clc;
+
+myhandles = struct;
+myhandles.path= 'Teds.txt';
+
+prompt = 'Enter the time in Milliseconds: ';
+hObj = input(prompt, 's');
+        
+MID = str2num(hObj);
+temp = de2bi(MID,'left-msb');
+myhandles.MID = [zeros(1,16-length(temp)),temp];
+
+fileID = fopen( 'V-teds.txt','w');
+A = myhandles.MID;
+fprintf(fileID,'%u',A);
