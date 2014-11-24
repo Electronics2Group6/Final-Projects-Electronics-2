@@ -1,12 +1,15 @@
 %% main function for simulating GPS
 clear all
 close all
+clc
 
 %% initialization
 % read in data for each satellite
 binary = ['0000000000000101010101001'; '0000000000001010101010010'; ...
     '0000000000010100011011011'; '0000000000011110111010100';...
     '0000001111101000110110101'];
+
+binaryInput = binary
 voltage = [1 2 3 4 5];
 
 infoStruct = [];
@@ -26,39 +29,41 @@ for i = 1:r
     infoStruct = [infoStruct s];
 end
 
-%% convert signal strength of all nearby satellites
-
-% for j = 1:length(r)
-%     
-% end
-
+%% ADC
+voltageBinary = [];
+for i = 1:length(voltage)
+    tempBinary = ADC(voltage(i));
+    voltageBinary = [voltageBinary; tempBinary];
+end
+voltageADC = voltageBinary
 %% choose the best 4 satellites to use
 
-%% temp filler
+[sortedValues,sortIndex] = sort(voltage(:),'descend');
+maxIndex = sortIndex(1:4);
+
+
+%% get the information from the 4 satellites we will be using
 
 xi = [];
 yi = [];
 zi = [];
 ri = [];
 for i = 1:4
-    xi = [xi infoStruct(i).X];
-    yi = [yi infoStruct(i).Y];
-    zi = [zi infoStruct(i).Z];
-    ri = [ri infoStruct(i).range];
+    xi = [xi infoStruct(maxIndex(i)).X* 10^8];
+    yi = [yi infoStruct(maxIndex(i)).Y* 10^8];
+    zi = [zi infoStruct(maxIndex(i)).Z* 10^8];
+    ri = [ri infoStruct(maxIndex(i)).range];
 end
-
-%% do math on the satellites chosen
-% [X, Y, Z, T]  = gps( x1, xi, y1, yi, z1, zi, p1, pp)
 
 %% mytest
 % xi = [ 2088202.299       11092568.240    35606984.591    3966929.048]
 % yi = [-11757191.370    -14198201.090     94447027.237    7362851.831] %y3 in the paper is 94447027.237, they messed up their copying
 % zi = [ 25391471.881      21471165.950    9101378.572     26388447.172]
 % ri = [23204698.51 21585835.37 31364260.01 24966798.73]
-xi = xi * 10^8;
-yi = yi * 10^8;
-zi = zi * 10^8;
-ri;
+xi
+yi
+zi
+ri
 [C] = thesisGPS(xi,yi,zi,ri);
 X = C(1)
 Y = C(2)

@@ -14,7 +14,7 @@ signalBinary_10 = conversion(end:-1:1);
 if length(signalBinary_10) >= 10
     signalBinary_10 = signalBinary_10(1:10);
 else
-    for i = length(signalBinary_10):1:10
+    for i = length(signalBinary_10):1:9
         signalBinary_10 = [signalBinary_10 '0'];
     end
         
@@ -24,6 +24,6 @@ end
 
 signalBinary_10 = signalBinary_10(end:-1:1);
 
-ouputBinary = signalBinary_10;
+outputBinary = signalBinary_10;
 output = bin2dec(signalBinary_10);
 % outputDB = mag2db(output)
