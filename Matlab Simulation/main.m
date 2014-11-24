@@ -25,7 +25,7 @@ for i = 1:r
     
     s = struct('timeDelay',bin2dec(time_bin),'X',bin2dec(x_bin),...
         'Y',bin2dec(y_bin),'Z',bin2dec(z_bin),'ID',bin2dec(satelliteId_bin),...
-        'range',bin2dec(time_bin) * 3 * 10^8/1000);
+        'range',bin2dec(time_bin) * 10^-3 * 3 * 10^8);
     infoStruct = [infoStruct s];
 end
 
