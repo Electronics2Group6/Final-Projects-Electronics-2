@@ -1,11 +1,12 @@
-module linear_solver(clk,x1,x2,x3,x4,y1,y2,y3,y4,z1,z2,z3,z4,r1,r2,r3,r4,c1,c2,c3,c4);
+module linear_solver(clk,x1,x2,x3,x4,y1,y2,y3,y4,z1,z2,z3,z4,r1,r2,r3,r4,c1,c2,c3,done);
 
 input clk;
 input wire[63:0] x1,x2,x3,x4,y1,y2,y3,y4,z1,z2,z3,z4,r1,r2,r3,r4;
 reg [63:0]A[2:0][2:0];//[row][column]
 reg [63:0]AI[2:0][2:0];//[row][column] Inverse matrix
 reg [63:0]B[2:0];
-output reg c1,c2,c3,c4;
+output reg[63:0] c1,c2,c3;
+output reg done;
 reg out;
 
 	reg[2:0]state;
@@ -18,6 +19,8 @@ case (state)
 
 	s0:
 	begin
+	done <= 0;
+	
 	//create A Matrix
 	   A[0][0] <= 2 * (x2-x1);
 	   A[0][1] <= 2 * (y2-y1);
@@ -54,7 +57,12 @@ case (state)
 		
 	end
 	s2:
-	   out = 2'b11;
+	begin
+	//compute AI * B = C
+		c1 = AI[0][0] * B[0] + AI[0][1] * B[1] + AI[0][2] * B[2];
+		c2 = AI[0][0] * B[0] + AI[0][1] * B[1] + AI[0][2] * B[2];
+		c3 = AI[0][0] * B[0] + AI[0][1] * B[1] + AI[0][2] * B[2];
+	end
 	default:
 		out = 2'b00;
 endcase
