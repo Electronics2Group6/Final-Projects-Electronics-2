@@ -9,8 +9,8 @@ output reg[63:0] c1,c2,c3;
 output reg done;
 reg out;
 
-	reg[2:0]state;
-    parameter s0 = 0, s1 = 1, s2 = 2, s3 = 3, s4 = 4, s5 = 5;
+reg[2:0]state;
+parameter s0 = 0, s1 = 1, s2 = 2, s3 = 3, s4 = 4, s5 = 5;
 	 
 	 
 always @ (state) begin
@@ -63,8 +63,9 @@ case (state)
 		c2 = AI[0][0] * B[0] + AI[0][1] * B[1] + AI[0][2] * B[2];
 		c3 = AI[0][0] * B[0] + AI[0][1] * B[1] + AI[0][2] * B[2];
 	end
-	default:
-		out = 2'b00;
+	//now we're done
+	s3:
+		done <= 1;
 endcase
 end
 always @ (posedge clk) begin
@@ -76,11 +77,11 @@ case (state)
    s2:
         state <= s3;
 	s3:
-        state <= s4;
-	s4:
-        state <= s5;
-	s5:
         state <= s0;
+	// s4:
+        // state <= s5;
+	// s5:
+        // state <= s0;
 endcase
 end
 
