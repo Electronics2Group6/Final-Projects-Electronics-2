@@ -10,7 +10,7 @@ module adc ( clk, analog1, analogcompare, dout1, trustbit);
 		reg 	  [6:0] 	dout1_reg;
 		reg 				LEG;
 
-		always @ (analogcompare)
+		always @ (posedge clk)
 		begin
 		  if (analogcompare >= analog1)
 				LEG <= 1;
