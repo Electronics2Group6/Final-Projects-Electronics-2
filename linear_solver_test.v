@@ -3,11 +3,16 @@ module linear_solver_test();
 reg clk;
 wire done;
 real x1,x2,x3,x4,y1,y2,y3,y4,z1,z2,z3,z4,r1,r2,r3,r4,c1,c2,c3;
-wire[2:0]state;
+wire[3:0]state;
+reg en;
 
-linear_solver linear_solver(clk,x1,x2,x3,x4,y1,y2,y3,y4,z1,z2,z3,z4,r1,r2,r3,r4,c1,c2,c3,done,state);
+integer i = 0;
+
+linear_solver linear_solver(clk,x1,x2,x3,x4,y1,y2,y3,y4,z1,z2,z3,z4,r1,r2,r3,r4,c1,c2,c3,done,state,en);
 
 initial begin
+	en = 0;
+	
 	x1 = 2088202.299;
 	x2 = 11092568.240;
 	x3 = 35606984.591;
@@ -27,29 +32,16 @@ initial begin
 	r2 = 21585835.37;
 	r3 = 31364260.01;
 	r4 = 24966798.73;
-	clk = 0;
-	#10;
-	clk = 1;
-	#10;
-	clk = 0;
-	#10;
-	clk = 1;
-	#10;
-	clk = 0;
-	#10;
-	clk = 1;
-	#10;
-	clk = 0;
-	#10;
-	clk = 1;
-	#10;
-	clk = 0;
-	#10;
-	clk = 1;
-	#10;
-	clk = 0;
-	#10;
-	clk = 1;
+	
+	
+	for(i = 0; i <= 15; i = i + 1)
+	begin
+		clk = 0;
+		#10;
+		clk = 1;
+		#10;
+	end
+
 	
 	$stop;
 	
