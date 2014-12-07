@@ -3,6 +3,7 @@ module linear_solver_test();
 reg clk;
 wire done;
 real x1,x2,x3,x4,y1,y2,y3,y4,z1,z2,z3,z4,r1,r2,r3,r4,c1,c2,c3;
+reg [3:0] a;
 wire[3:0]state;
 reg en;
 
@@ -12,7 +13,6 @@ linear_solver linear_solver(clk,x1,x2,x3,x4,y1,y2,y3,y4,z1,z2,z3,z4,r1,r2,r3,r4,
 
 initial begin
 	en = 1;
-	
 	x1 = 2088202.299;
 	x2 = 11092568.240;
 	x3 = 35606984.591;

@@ -11,7 +11,7 @@ real AI[2:0][2:0];
 
 //reg [63:0]B[2:0];
 real B[2:0];
-output reg[63:0] c1,c2,c3;
+output reg signed [63:0] c1,c2,c3;
 real cc1,cc2,cc3;
 //output real c1,c2,c3;
 reg out;
